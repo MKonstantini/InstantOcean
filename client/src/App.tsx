@@ -1,14 +1,26 @@
 import React from 'react';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// import { ToastContainer } from 'react-toastify';
+// import { alertSuccess } from './services/alertFunctions';
 
+// Components
+import Navbar from './components/misc/Navbar';
+import Home from './components/pages/Home';
+import Footer from './components/misc/Footer';
+import NotFound from './components/pages/NotFound';
+
+// App
 function App() {
   return (
-    <div className="App container mt-5">
-      <header className='.bg-info-subtle p-5'>
-        <h1 className='text-primary display-1'>Instant Ocean</h1>
-        <h2 className='text-secondary'>From booking to sea in a heartbeat!</h2>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 
