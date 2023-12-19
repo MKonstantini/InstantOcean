@@ -9,6 +9,7 @@ import Navbar from './components/misc/Navbar';
 import Home from './components/pages/Home';
 import Footer from './components/misc/Footer';
 import NotFound from './components/pages/NotFound';
+import About from './components/pages/About';
 
 // App
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />

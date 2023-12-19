@@ -6,7 +6,7 @@ interface NavbarProps {
 }
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -20,9 +20,20 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 {/* Nav Body */}
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav">
-                        <a className="nav-link active" aria-current="page" href="#">Home</a>
-                        <a className="nav-link" href="#">Features</a>
-                        <a className="nav-link" href="#">Pricing</a>
+                        <div className="d-flex flex-row">
+                            {/* Left */}
+                            <NavLink className="nav-link" to="/">Home</NavLink>
+                            <NavLink className="nav-link" to="/cruises">Cruises</NavLink>
+                            <NavLink className="nav-link" to="/explore">Explore</NavLink>
+                            <NavLink className="nav-link" to="/about">About</NavLink>
+                        </div>
+
+                        <div className="d-flex flex-row">
+                            {/* Right */}
+                            <NavLink className="nav-link" to="/search">Search</NavLink>
+                            <NavLink className="nav-link" to="/favorites">Favorites</NavLink>
+                            <NavLink className="nav-link" to="/Login">Login</NavLink>
+                        </div>
                     </div>
                 </div>
             </div>
