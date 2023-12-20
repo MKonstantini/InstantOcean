@@ -19,20 +19,44 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </button>
                 {/* Nav Body */}
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div className="navbar-nav">
-                        <div className="d-flex flex-row">
+                    <div className="navbar-nav w-100 d-flex justify-content-between">
+                        <div className="d-lg-flex flex-row">
                             {/* Left */}
                             <NavLink className="nav-link" to="/">Home</NavLink>
                             <NavLink className="nav-link" to="/cruises">Cruises</NavLink>
-                            <NavLink className="nav-link" to="/explore">Explore</NavLink>
-                            <NavLink className="nav-link" to="/about">About</NavLink>
-                        </div>
 
-                        <div className="d-flex flex-row">
+                            <span className="nav-item dropdown">
+                                <span className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Explore
+                                </span>
+                                <ul className="dropdown-menu">
+                                    <NavLink className="dropdown-item"
+                                        to="destinations">
+                                        <i className="fa-solid fa-map-location-dot me-2"></i>
+                                        Destinations
+                                    </NavLink>
+                                    <NavLink className="dropdown-item" to="activities">
+                                        <i className="fa-solid fa-table-tennis-paddle-ball me-2"></i>
+                                        Onboard Activities
+                                    </NavLink>
+                                    <NavLink className="dropdown-item" to="dining">
+                                        <i className="fa-solid fa-champagne-glasses me-2"></i>
+                                        Dining Rooms
+                                    </NavLink>
+                                </ul>
+                            </span>
+
+
+                            <NavLink className="nav-link me-auto" to="/about">About</NavLink>
+                        </div>
+                        <div className="d-lg-flex flex-row">
                             {/* Right */}
                             <NavLink className="nav-link" to="/search">Search</NavLink>
                             <NavLink className="nav-link" to="/favorites">Favorites</NavLink>
-                            <NavLink className="nav-link" to="/Login">Login</NavLink>
+                            <NavLink className="nav-link" to="/Login">
+                                <i className="fa-regular fa-circle-user me-2"></i>
+                                Login
+                            </NavLink>
                         </div>
                     </div>
                 </div>
