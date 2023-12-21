@@ -9,7 +9,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     // const navigate = useNavigate()
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ minHeight: "90px" }}>
             <div className="container-fluid">
                 {/* Brand */}
                 <Link className="navbar-brand" to="/">Instant Ocean</Link>
@@ -53,7 +53,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                             {/* Right */}
                             <NavLink className="nav-link" to="/search">Search</NavLink>
                             <NavLink className="nav-link" to="/favorites">Favorites</NavLink>
-                            <NavLink className="nav-link" to="/Login">
+                            <NavLink className="nav-link" to="/login">
                                 <i className="fa-regular fa-circle-user me-2"></i>
                                 Login
                             </NavLink>
