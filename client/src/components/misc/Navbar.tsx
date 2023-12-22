@@ -6,12 +6,13 @@ interface NavbarProps {
 }
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ minHeight: "90px" }}>
             <div className="container-fluid">
                 {/* Brand */}
+                <img src="Logo.svg" alt="logo" className="me-2" onClick={() => navigate("/")} />
                 <Link className="navbar-brand" to="/">Instant Ocean</Link>
                 {/* Collapse Btn */}
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
