@@ -1,6 +1,66 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css";
+@import 'https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,400;0,800;1,200&family=Montserrat:wght@300;400;500;600;700;900&display=swap';
 
 body {
-  background-color: #ececec !important;
+  background-color: #ffffff !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Karla', sans-serif;
+}
+
+/* VideoCard */
+.vidCard {
+  position: relative;
+  width: 100%;
+  height: 30rem;
+}
+.vidPlayer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.vidOverlay {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(160deg, rgb(90, 90, 90), transparent, transparent);
+}
+.vidText{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding: 5rem;
+  color: white;
+}
+.vidText h1{
+  font-size: 50pt;
+}
+
+/* Sections */
+.headerCard {
+  padding: 1.2rem;
+  background-color: rgb(95, 200, 255);
+  width: 100%;
+}
+.headerCard h1{
+  text-align: center;
+  color: white;
+  font-size: 2.5em;
+  font-weight: 800;
+}
+.headerCard h2{
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: bold;
+}
+.headerCard i{
+  font-size: 5rem;
+  color:white;
 }

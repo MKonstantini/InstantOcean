@@ -21,7 +21,7 @@ const FormRegister: FunctionComponent<FormRegisterProps> = () => {
             lastname: yup.string().required("last name is a required field"),
             email: yup.string().email().required(),
             password: yup.string().required(),
-            accountType: yup.string(),
+            accountType: yup.string().required(),
             favorites: yup.array()
         }),
         onSubmit: (values, { resetForm }) => {

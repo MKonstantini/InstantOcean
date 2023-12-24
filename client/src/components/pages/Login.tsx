@@ -21,7 +21,7 @@ const Login: FunctionComponent<LoginProps> = () => {
 
                 {/* Demo Users */}
                 <div>
-                    <h5>______ Demo Users _____</h5>
+                    <h5>Demo Users</h5>
                     {/* Regular */}
                     <button type="button" className="btn btn-outline-primary mt-4" style={{ width: "12rem" }}> <i className="fa-solid fa-user me-2"></i>Demo Regular User</button>
                     {/* Admin */}
