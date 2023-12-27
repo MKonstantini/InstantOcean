@@ -1,14 +1,12 @@
 import { FunctionComponent } from "react";
-import { getAllCruises } from "../../services/dbFunctions";
 import { useNavigate } from "react-router-dom";
 
 interface HomeProps {
-
+    cruisesData: any
 }
 
-const Home: FunctionComponent<HomeProps> = () => {
+const Home: FunctionComponent<HomeProps> = ({ cruisesData }) => {
     const navigate = useNavigate()
-    getAllCruises()
 
     return (
         <div>
@@ -24,7 +22,7 @@ const Home: FunctionComponent<HomeProps> = () => {
             </section>
 
             {/* Special Offers */}
-            <section className="d-flex flex-column align-items-center py-5">
+            <section className="py-4">
                 {/* Header Card */}
                 <div className="headerCard d-flex gap-5 justify-content-center">
                     <div style={{ width: "80px" }}></div>
@@ -34,6 +32,8 @@ const Home: FunctionComponent<HomeProps> = () => {
                     </div>
                     <div><i className="fa-solid fa-tags"></i></div>
                 </div>
+                {/* 3 CruiseCards */}
+
             </section>
 
             {/* Ocean-Phobia */}

@@ -1,10 +1,10 @@
 import { FunctionComponent } from "react";
 
 interface FavoritesProps {
-
+    cruisesData: any
 }
 
-const Favorites: FunctionComponent<FavoritesProps> = () => {
+const Favorites: FunctionComponent<FavoritesProps> = (cruisesData) => {
     return (
         <section className="container my-5">
             <header>

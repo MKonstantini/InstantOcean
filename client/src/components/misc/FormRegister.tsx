@@ -1,12 +1,43 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { Field, FormikProvider, useFormik } from "formik";
 import * as yup from "yup"
+import { userRegister } from "../../services/dbFunctions";
+import { useNavigate } from "react-router-dom";
+import User from "../../interfaces/User";
+import { alertSuccess, alertError } from "../../services/alertFunctions";
+import { AdminContext, LoginContext } from "../../App";
+
 
 interface FormRegisterProps {
 
 }
 
 const FormRegister: FunctionComponent<FormRegisterProps> = () => {
+    // Get Context
+    const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext)
+    const [isAdmin, setIsAdmin] = useContext(AdminContext)
+
+    async function clientRegister(user: User) {
+        try {
+            await userRegister(user).then((token: any) => {
+                // set token
+                sessionStorage.setItem("token", token.data)
+
+                // check admin
+                if (user.accountType === "admin") setIsAdmin(true)
+
+                // client response
+                alertSuccess(`New Account Created! Welcome ${user.email}`)
+                setIsLoggedIn(true)
+                navigate("/")
+            })
+        } catch (error: any) {
+            alertError(error.response.data)
+        }
+    }
+
+    const navigate = useNavigate()
+
     let formik = useFormik({
         initialValues: {
             firstname: "",
@@ -25,9 +56,10 @@ const FormRegister: FunctionComponent<FormRegisterProps> = () => {
             favorites: yup.array()
         }),
         onSubmit: (values, { resetForm }) => {
-            console.log(values)
+            clientRegister(values)
             resetForm()
         }
+
     })
 
     return (

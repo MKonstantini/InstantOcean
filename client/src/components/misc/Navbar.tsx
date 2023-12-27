@@ -1,5 +1,6 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AdminContext, LoginContext } from "../../App";
 
 interface NavbarProps {
 
@@ -7,6 +8,17 @@ interface NavbarProps {
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
     const navigate = useNavigate()
+
+    // Get Context
+    const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext)
+    const [isAdmin, setIsAdmin] = useContext(AdminContext)
+
+    function logoutFunction() {
+        sessionStorage.clear()
+        setIsLoggedIn(false)
+        setIsAdmin(false)
+        navigate("/")
+    }
 
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ minHeight: "90px" }}>
@@ -47,17 +59,30 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                                 </ul>
                             </span>
 
-
                             <NavLink className="nav-link me-auto" to="/about">About</NavLink>
                         </div>
                         <div className="d-lg-flex flex-row">
                             {/* Right */}
                             <NavLink className="nav-link" to="/search">Search</NavLink>
                             <NavLink className="nav-link" to="/favorites">Favorites</NavLink>
-                            <NavLink className="nav-link" to="/login">
-                                <i className="fa-regular fa-circle-user me-2"></i>
-                                Login
-                            </NavLink>
+                            {
+                                isAdmin &&
+                                <NavLink className="nav-link" to="/admintools">
+                                    <i className="fa-solid fa-wrench me-2"></i>
+                                    Admin Tools
+                                </NavLink>
+                            }
+                            {
+                                isLoggedIn ?
+                                    <button className="nav-link" onClick={logoutFunction}>
+                                        <i className="fa-solid fa-arrow-right-from-bracket me-2"></i>
+                                        Logout
+                                    </button> :
+                                    <NavLink className="nav-link" to="/login">
+                                        <i className="fa-regular fa-circle-user me-2"></i>
+                                        Login
+                                    </NavLink>
+                            }
                         </div>
                     </div>
                 </div>

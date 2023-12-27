@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
     }
 })
 
-// DELETE CRUISE
+// DELETE CRUISE VIA NAME
 router.delete("/", async(req, res) => {
     try {
         // delete cruise
@@ -70,16 +70,15 @@ router.delete("/", async(req, res) => {
 })
 
 // UPDATE CRUISE
-router.patch("/", async(req, res) => {
-    // req.body should contain the new info in full 
-    // except for cruise name which is the key
+router.patch("/:name", async(req, res) => {
+    // req.body should contain the new edited info
     try {
         // joi validation
         const {error} = cruiseJoiSchema.validate(req.body)
         if (error) return res.status(400).send(error) 
 
         // update cruise
-        const cruise = await Cruise.findOneAndUpdate({name: req.body.name}, req.body, {new: true})
+        const cruise = await Cruise.findOneAndUpdate({name: req.params.name}, req.body, {new: true})
 
         // return updated cruise
         res.status(201).send(cruise)

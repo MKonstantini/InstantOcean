@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
 
         // check if exists - mongoose findOne()
         let user = await User.findOne({email : req.body.email})
-        if (user) return res.status(400).send("user already exists")
+        if (user) return res.status(400).send("User already exists!")
 
         // create user
         user = new User(req.body)
@@ -58,18 +58,14 @@ router.post("/", async (req, res) => {
 
 // USER LOGIN
 router.post("/login", async (req, res) => {
-    try {
-        // validate body - joi
-        const {error} = userJoiSchema.validate(req.body)
-        if (error) return res.status(400).send(error) 
-        
+    try {        
         // check if user exists - findOne()
         let user = await User.findOne({email: req.body.email})
         if (!user) return res.status(404).send("wrong email or password")
 
         // check password with encryption - bcrypt.compare()
-        const result = await bcrypt.compare(req.body.password, user.password)
-        if (!result) return res.status(404).send("wrong email or pasword")
+        const check = await bcrypt.compare(req.body.password, user.password)
+        if (!check) return res.status(404).send("wrong email or pasword")
 
         // return res with token
         const token = jwt.sign({
@@ -86,7 +82,7 @@ router.post("/login", async (req, res) => {
     }
 })
 
-// GET ONE USER'S INFO
+// GET ONE USER'S INFO VIA TOKEN
 router.get("/", auth, async(req, res) => {
     try {
         // check token

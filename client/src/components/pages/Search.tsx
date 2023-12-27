@@ -1,10 +1,10 @@
 import { FunctionComponent } from "react";
 
 interface SearchProps {
-
+    cruisesData: any
 }
 
-const Search: FunctionComponent<SearchProps> = () => {
+const Search: FunctionComponent<SearchProps> = ({ cruisesData }) => {
     return (
         <section className="container my-5">
             <header>
