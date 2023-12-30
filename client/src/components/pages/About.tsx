@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import PageTopImg from "../page_parts/PageTopImg";
 
 interface AboutProps {
 
@@ -6,11 +7,9 @@ interface AboutProps {
 
 const About: FunctionComponent<AboutProps> = () => {
     return (
-        <section className="container my-5">
-            <header>
-                <h1 className='text-primary display-1'>About</h1>
-            </header>
-        </section>
+        <div className="my-5">
+            <PageTopImg title="About" subTitle="Creating Something Different" imgSrc="PageImg-About.jpg" />
+        </div>
     );
 }
 

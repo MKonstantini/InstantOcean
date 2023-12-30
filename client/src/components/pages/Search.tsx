@@ -1,5 +1,6 @@
 import { FunctionComponent, useContext } from "react";
 import { CruiseContext } from "../../App";
+import PageTopImg from "../page_parts/PageTopImg";
 
 interface SearchProps {
 
@@ -9,11 +10,9 @@ const Search: FunctionComponent<SearchProps> = () => {
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
 
     return (
-        <section className="container my-5">
-            <header>
-                <h1 className='text-primary display-1'>Search</h1>
-            </header>
-        </section>
+        <div className="my-5">
+            <PageTopImg title="Search" subTitle="Find Exactly What You're Looking For" imgSrc="PageImg-Search.jpg" />
+        </div>
     );
 }
 
