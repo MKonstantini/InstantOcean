@@ -1,6 +1,7 @@
 import { FunctionComponent, useContext, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AdminContext, LoginContext } from "../../App";
+import { alertSuccess } from "../../services/alertFunctions";
 
 interface NavbarProps {
 
@@ -18,10 +19,11 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         setIsLoggedIn(false)
         setIsAdmin(false)
         navigate("/")
+        alertSuccess("Logout Successful. Hope to see you again!")
     }
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ minHeight: "90px" }}>
+        <nav className="navbar fixed-top navbar-expand-lg bg-body-tertiary" style={{ minHeight: "90px" }}>
             <div className="container-fluid">
                 {/* Brand */}
                 <img src="Logo.svg" alt="logo" className="me-2" onClick={() => navigate("/")} />

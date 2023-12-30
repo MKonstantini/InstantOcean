@@ -1,10 +1,13 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
+import { CruiseContext } from "../../App";
 
 interface FavoritesProps {
-    cruisesData: any
+
 }
 
-const Favorites: FunctionComponent<FavoritesProps> = (cruisesData) => {
+const Favorites: FunctionComponent<FavoritesProps> = () => {
+    const [cruisesData, setCruisesData] = useContext(CruiseContext)
+
     return (
         <section className="container my-5">
             <header>

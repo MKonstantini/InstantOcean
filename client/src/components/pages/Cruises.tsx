@@ -1,16 +1,39 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
+import { CruiseContext } from "../../App";
+import PageTopImg from "../page_parts/PageTopImg";
+import Cruise from "../../interfaces/Cruise";
+import CruisCard from "../page_parts/CruiseCard";
 
 interface CruisesProps {
-    cruisesData: any
+
 }
 
-const Cruises: FunctionComponent<CruisesProps> = ({ cruisesData }) => {
+const Cruises: FunctionComponent<CruisesProps> = () => {
+    const [cruisesData, setCruisesData] = useContext(CruiseContext)
+
     return (
-        <section className="container my-5">
-            <header>
-                <h1 className='text-primary display-1'>Cruises</h1>
-            </header>
-        </section>
+        <div className="my-5">
+            {/* Page Top */}
+            <PageTopImg imgSrc="PageImg-Cruises.jpg" title="Cruises" subTitle="Explore The Ocean Your Way" />
+            {/* Filter */}
+            <div><h1>Filter</h1></div>
+
+            {/* Displayed Cruises */}
+            {
+                cruisesData ?
+                    <div className="d-flex gap-5 flex-wrap justify-content-center mt-5">
+                        {
+                            cruisesData.map((cruise: Cruise, i: number) => {
+                                return (
+                                    <CruisCard key={i} cruiseNum={cruise.cruiseNum} />
+                                )
+                            })
+                        }
+                    </div>
+                    :
+                    <p>Awaiting Data</p>
+            }
+        </div>
     );
 }
 

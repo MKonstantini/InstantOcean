@@ -6,6 +6,7 @@ const Cruise = require("../models/Cruise")
 // Joi object
 const joi = require("joi")
 const cruiseJoiSchema = joi.object({
+    cruiseNum: joi.number().required(),
     name: joi.string().required(),
     duration: joi.number().required(),
     departFrom: joi.string().required(),
@@ -24,7 +25,7 @@ router.get("/", async(req, res) => {
         // send res
         cruises
         ? res.status(200).send(cruises)
-        : res.status(404).send("no cruises found")
+        : res.status(404).send("no cruises found!")
 
     } catch (err) {
         res.status(400).send(err)        
@@ -59,7 +60,7 @@ router.delete("/", async(req, res) => {
         const cruise = await Cruise.findOneAndDelete({name: req.body.name })
         
         // return if no cruise found
-        if (!cruise) return res.status(404).send("cruise not found")
+        if (!cruise) return res.status(404).send("cruise not found!")
 
         // return deleted cruise
         res.status(200).send(cruise)
@@ -70,7 +71,7 @@ router.delete("/", async(req, res) => {
 })
 
 // UPDATE CRUISE
-router.patch("/:name", async(req, res) => {
+router.patch("/:cruiseNum", async(req, res) => {
     // req.body should contain the new edited info
     try {
         // joi validation
@@ -78,7 +79,7 @@ router.patch("/:name", async(req, res) => {
         if (error) return res.status(400).send(error) 
 
         // update cruise
-        const cruise = await Cruise.findOneAndUpdate({name: req.params.name}, req.body, {new: true})
+        const cruise = await Cruise.findOneAndUpdate({cruiseNum: req.params.cruiseNum}, req.body, {new: true})
 
         // return updated cruise
         res.status(201).send(cruise)

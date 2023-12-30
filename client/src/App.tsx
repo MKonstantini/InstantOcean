@@ -19,37 +19,37 @@ import Search from './components/pages/Search';
 import Favorites from './components/pages/Favorites';
 import Login from './components/pages/Login';
 import AdminTools from "./components/pages/AdminTools";
-import { clear } from "console";
 
-
-// Contexts
-// export const CruiseContext = createContext<any>({})
+// Context
+export const CruiseContext = createContext<any>(null)
 export const LoginContext = createContext<any>(false)
 export const AdminContext = createContext<any>(false)
 
 // App
 function App() {
-  // States
-  const [cruisesData, setCruisesData] = useState({})
+  // States For Context
+  const [cruisesData, setCruisesData] = useState(null)
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
-  // DB - Get Cruises Data
+  const [dataReady, setDataReady] = useState<boolean>(false)
+
   useEffect(() => {
     cruiseGetAll().then((res) => (setCruisesData(res.data)))
   }, [])
+
+  console.log(cruisesData)
 
   // Check For User On Load
   useEffect(() => {
     if (sessionStorage.getItem("token") != null) {
       // get token
       const token: any = sessionStorage.getItem("token")
-
       // set states
-      setIsLoggedIn(true)
       let accountType
       userGetUserInfo(token).then((res) => accountType = res.data.accountType)
       accountType === "admin" ? setIsAdmin(true) : setIsAdmin(false)
+      setIsLoggedIn(true)
 
     } else {
       // set states
@@ -59,41 +59,33 @@ function App() {
   }, [])
 
   return (
-    // <CruiseContext.Provider value={[cruisesData, setCruisesData]}>
-    <LoginContext.Provider value={[isLoggedIn, setIsLoggedIn]}>
-      <AdminContext.Provider value={[isAdmin, setIsAdmin]}>
-        <BrowserRouter>
-          <ToastContainer />
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<Home
-              cruisesData={cruisesData}
-            />} />
-            <Route path='/cruises' element={<Cruises
-              cruisesData={cruisesData}
-            />} />
-            <Route path='/about' element={<About />} />
+    <CruiseContext.Provider value={[cruisesData, setCruisesData]}>
+      <LoginContext.Provider value={[isLoggedIn, setIsLoggedIn]}>
+        <AdminContext.Provider value={[isAdmin, setIsAdmin]}>
+          <BrowserRouter>
+            <ToastContainer />
+            <Navbar />
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/cruises' element={<Cruises />} />
+              <Route path='/about' element={<About />} />
 
-            <Route path='/destinations' element={<Destinations />} />
-            <Route path='/activities' element={<Activities />} />
-            <Route path='/dining' element={<Dining />} />
+              <Route path='/destinations' element={<Destinations />} />
+              <Route path='/activities' element={<Activities />} />
+              <Route path='/dining' element={<Dining />} />
 
-            <Route path='/search' element={<Search
-              cruisesData={cruisesData}
-            />} />
-            <Route path='/favorites' element={<Favorites
-              cruisesData={cruisesData}
-            />} />
-            <Route path='/login' element={<Login />} />
+              <Route path='/search' element={<Search />} />
+              <Route path='/favorites' element={<Favorites />} />
+              <Route path='/login' element={<Login />} />
 
-            <Route path='/admintools' element={<AdminTools />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
-      </AdminContext.Provider>
-    </LoginContext.Provider>
-    // </CruiseContext.Provider>
+              <Route path='/admintools' element={<AdminTools />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+            <Footer />
+          </BrowserRouter>
+        </AdminContext.Provider>
+      </LoginContext.Provider>
+    </CruiseContext.Provider>
   );
 }
 

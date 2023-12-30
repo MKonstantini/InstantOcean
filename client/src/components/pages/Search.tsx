@@ -1,10 +1,13 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
+import { CruiseContext } from "../../App";
 
 interface SearchProps {
-    cruisesData: any
+
 }
 
-const Search: FunctionComponent<SearchProps> = ({ cruisesData }) => {
+const Search: FunctionComponent<SearchProps> = () => {
+    const [cruisesData, setCruisesData] = useContext(CruiseContext)
+
     return (
         <section className="container my-5">
             <header>

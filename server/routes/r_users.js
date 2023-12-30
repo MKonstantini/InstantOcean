@@ -61,11 +61,11 @@ router.post("/login", async (req, res) => {
     try {        
         // check if user exists - findOne()
         let user = await User.findOne({email: req.body.email})
-        if (!user) return res.status(404).send("wrong email or password")
+        if (!user) return res.status(404).send("wrong email or password!")
 
         // check password with encryption - bcrypt.compare()
         const check = await bcrypt.compare(req.body.password, user.password)
-        if (!check) return res.status(404).send("wrong email or pasword")
+        if (!check) return res.status(404).send("wrong email or pasword!")
 
         // return res with token
         const token = jwt.sign({
@@ -86,11 +86,11 @@ router.post("/login", async (req, res) => {
 router.get("/", auth, async(req, res) => {
     try {
         // check token
-        if (!req.payload) return res.status(400).send("must include token")
+        if (!req.payload) return res.status(400).send("must include token!")
 
         // get user via email from token
         const user = await User.findOne({email: req.payload.email})
-        if (!user) return res.status(404).send("user not found")
+        if (!user) return res.status(404).send("user not found!")
 
         // return found user info
         res.status(200).send(_.pick(user, [
@@ -114,7 +114,7 @@ router.delete("/", async(req, res) => {
         const user = await User.findOneAndDelete({email: req.body.email})
         
         // return if not found
-        if (!user) return res.status(404).send("user not found")
+        if (!user) return res.status(404).send("user not found!")
 
         // return user
         res.status(200).send(user)
