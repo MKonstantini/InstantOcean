@@ -107,6 +107,29 @@ router.get("/", auth, async(req, res) => {
     }
 })
 
+// PATCH FAVORITES
+router.patch("/", auth, async(req, res) => {
+    try {
+        // check token
+        if (!req.payload) return res.status(400).send("must include token!")
+
+        // patch favorites
+        const user = await User.findOneAndUpdate(
+            {email: req.payload.email},
+            {$set : {favorites: req.body.favorites}},
+            {new : true}
+        )
+        if (!user) return res.status(404).send("user not found!")
+            
+        // send new favorites as res
+        res.status(200).send(user.favorites)
+    }
+    catch (err) {
+        res.status(400).send(err)
+    }
+})
+
+
 // DELETE USER
 router.delete("/", async(req, res) => {
     try {

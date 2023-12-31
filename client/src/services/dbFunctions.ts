@@ -26,6 +26,16 @@ export function userGetUserInfo(token: string){
         }}
     ) //returns user info obj
 }
+export function userPatchFavorites(token: string, favArr: number[]){
+    return axios.patch(
+        `${api}/users`, {favorites: favArr},
+        {headers: {
+            "Access-Control-Allow-Origin" : "*",
+            "Content-type": "Application/json",
+            "Authorization": `Bearer ${token}`
+        }}
+    ) //returns favorites array
+}
 
 // Cruise Functions
 export function cruiseGetAll(){

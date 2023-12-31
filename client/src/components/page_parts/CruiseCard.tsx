@@ -1,14 +1,19 @@
 import { FunctionComponent, useContext } from "react";
 import Cruise from "../../interfaces/Cruise";
-import { CruiseContext } from "../../App";
+import { CruiseContext, UserContext } from "../../App";
+import { userGetUserInfo, userPatchFavorites } from "../../services/dbFunctions";
+import { alertError } from "../../services/alertFunctions";
 
 interface CruisCardProps {
     cruiseNum: number
 }
 
-
 const CruisCard: FunctionComponent<CruisCardProps> = ({ cruiseNum }) => {
+    // context
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
+    const [userInfo, setUserInfo] = useContext(UserContext)
+
+    // props
     const cruiseObj: Cruise = cruisesData[cruiseNum - 1]
 
     // date calculations and formatting
@@ -21,11 +26,44 @@ const CruisCard: FunctionComponent<CruisCardProps> = ({ cruiseNum }) => {
     const date2 = addDays(date1, 7)
     const date3 = addDays(date1, 14)
 
+    // toggle favorite
+    function toggleFavorite() {
+        if (!userInfo) {
+            // if not logged in
+            alertError("Login to access the favorites feature!")
+
+        } else if (userInfo.favorites.includes(cruiseObj.cruiseNum)) {
+            // if cruise is in favorites - remove cruiseNum from favorites
+            const updatedFavorites = userInfo.favorites.splice(
+                userInfo.favorites.indexOf(cruiseObj.cruiseNum), 1
+            )
+            userPatchFavorites(
+                sessionStorage.getItem("token") as string, updatedFavorites
+            )
+            // update userInfo
+            userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
+
+        } else {
+            // if cruise is not in favorites - add cruiseNum to favorites
+            userInfo.favorites.push(cruiseObj.cruiseNum)
+            userPatchFavorites(
+                sessionStorage.getItem("token") as string, userInfo.favorites
+            )
+            // update userInfo
+            userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
+        }
+
+    }
+
     return (
         <div className="card position-relative">
             {/* favorites btn */}
-            <button className="heartBtn">
-                <i className="fa-regular fa-heart"></i>
+            <button className="heartBtn" onClick={toggleFavorite}>
+                {
+                    userInfo && userInfo.favorites.includes(cruiseObj.cruiseNum) ?
+                        <i className="fa-solid fa-heart"></i> :
+                        <i className="fa-regular fa-heart"></i>
+                }
             </button>
             {/* img */}
             <img src={cruiseObj.img} className="card-img-top" alt="cruisImg" style={{ maxWidth: "30rem", maxHeight: "14rem", objectFit: "cover" }} />

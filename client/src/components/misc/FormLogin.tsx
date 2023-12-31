@@ -1,39 +1,30 @@
 import { FunctionComponent, useContext } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { AdminContext, LoginContext } from "../../App";
 import { userGetUserInfo, userLogin } from "../../services/dbFunctions";
 import User from "../../interfaces/User";
 import { alertError, alertSuccess } from "../../services/alertFunctions";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
 
 interface FormLoginProps {
 
 }
 
 const FormLogin: FunctionComponent<FormLoginProps> = () => {
-    // Get Context
-    const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext)
-    const [isAdmin, setIsAdmin] = useContext(AdminContext)
-
+    const [userInfo, setUserInfo] = useContext(UserContext)
     const navigate = useNavigate()
 
     async function clientLogin(values: any) {
         try {
-            // get and set token (token required for check admin)
-            let token!: string
+            // set token and userInfo
             await userLogin(values.email, values.password).then((res) =>
-                token = res.data)
-            sessionStorage.setItem("token", token)
-
-            // check admin
-            let accountType!: string
-            await userGetUserInfo(token).then((res) => accountType = res.data.accountType)
-            accountType === "admin" ? setIsAdmin(true) : setIsAdmin(false)
+                sessionStorage.setItem("token", res.data)
+            )
+            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
 
             // client response
             alertSuccess(`Welcome back ${values.email}!`)
-            setIsLoggedIn(true)
             navigate("/")
 
         } catch (error: any) {

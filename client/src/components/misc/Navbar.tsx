@@ -1,7 +1,7 @@
-import { FunctionComponent, useContext, useEffect } from "react";
+import { FunctionComponent, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { AdminContext, LoginContext } from "../../App";
-import { alertSuccess } from "../../services/alertFunctions";
+import { alertError, alertSuccess } from "../../services/alertFunctions";
+import { UserContext } from "../../App";
 
 interface NavbarProps {
 
@@ -11,13 +11,11 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     const navigate = useNavigate()
 
     // Get Context
-    const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext)
-    const [isAdmin, setIsAdmin] = useContext(AdminContext)
+    const [userInfo, setUserInfo] = useContext(UserContext)
 
     function logoutFunction() {
         sessionStorage.clear()
-        setIsLoggedIn(false)
-        setIsAdmin(false)
+        setUserInfo(null)
         navigate("/")
         alertSuccess("Logout Successful. Hope to see you again!")
     }
@@ -66,16 +64,16 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                         <div className="d-lg-flex flex-row">
                             {/* Right */}
                             <NavLink className="nav-link" to="/search">Search</NavLink>
-                            <NavLink className="nav-link" to="/favorites">Favorites</NavLink>
+                            <NavLink className="nav-link" to={"/favorites"} onClick={() => { !userInfo && alertError("Login to access this feature!") }}>Favorites</NavLink>
                             {
-                                isAdmin &&
+                                userInfo && userInfo.accountType === "admin" &&
                                 <NavLink className="nav-link" to="/admintools">
                                     <i className="fa-solid fa-wrench me-2"></i>
                                     Admin Tools
                                 </NavLink>
                             }
                             {
-                                isLoggedIn ?
+                                userInfo ?
                                     <button className="nav-link" onClick={logoutFunction}>
                                         <i className="fa-solid fa-arrow-right-from-bracket me-2"></i>
                                         Logout

@@ -1,10 +1,10 @@
 import { FunctionComponent, useContext } from "react";
 import FormRegister from "../misc/FormRegister";
 import FormLogin from "../misc/FormLogin";
-import { AdminContext, LoginContext } from "../../App";
-import { userLogin } from "../../services/dbFunctions";
+import { userGetUserInfo, userLogin } from "../../services/dbFunctions";
 import { alertError, alertSuccess } from "../../services/alertFunctions";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../App";
 
 interface LoginProps {
 
@@ -13,17 +13,16 @@ interface LoginProps {
 const Login: FunctionComponent<LoginProps> = () => {
     const navigate = useNavigate()
     // Get Context
-    const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext)
-    const [isAdmin, setIsAdmin] = useContext(AdminContext)
+    const [userInfo, setUserInfo] = useContext(UserContext)
 
     // Demo Login Function -  Regular
-    function demoRegularLogin() {
+    async function demoRegularLogin() {
         try {
             // get token
-            userLogin("dRegular@instantocean.com", "demoRegular").then((res) => sessionStorage.setItem("token", res.data))
+            await userLogin("dRegular@instantocean.com", "demoRegular").then((res) => sessionStorage.setItem("token", res.data))
             // cleant response
             alertSuccess("Welcome to the demo! Authorization: Regular Account")
-            setIsLoggedIn(true)
+            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
             navigate("/")
         } catch (error: any) {
             alertError(error.response.data)
@@ -31,17 +30,16 @@ const Login: FunctionComponent<LoginProps> = () => {
     }
 
     // Demo Login Function -  Admin
-    function demoAdminLogin() {
+    async function demoAdminLogin() {
         try {
             // get token
-            userLogin("dAdmin@instantocean.com", "demoAdmin").then((res) => sessionStorage.setItem("token", res.data))
+            await userLogin("dAdmin@instantocean.com", "demoAdmin").then((res) => sessionStorage.setItem("token", res.data))
             // cleant response
             alertSuccess("Welcome to the demo! Authorization: Admin Account")
-            setIsLoggedIn(true)
-            setIsAdmin(true)
+            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
             navigate("/")
-        } catch (error) {
-            alert(error)
+        } catch (error: any) {
+            alertError(error.response.data)
         }
     }
 

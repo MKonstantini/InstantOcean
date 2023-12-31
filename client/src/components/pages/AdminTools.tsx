@@ -1,5 +1,5 @@
 import { FunctionComponent, useContext } from "react";
-import { AdminContext } from "../../App";
+import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 
 interface AdminToolsProps {
@@ -7,10 +7,10 @@ interface AdminToolsProps {
 }
 
 const AdminTools: FunctionComponent<AdminToolsProps> = () => {
-    const [isAdmin, setIsAdmin] = useContext(AdminContext)
+    const [userInfo, setUserInfo] = useContext(UserContext)
     const navigate = useNavigate()
 
-    if (isAdmin === false) navigate("/")
+    if (userInfo.accountType !== "admin") navigate("/")
 
 
     return (

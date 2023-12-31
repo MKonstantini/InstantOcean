@@ -1,11 +1,11 @@
 import { FunctionComponent, useContext } from "react";
 import { Field, FormikProvider, useFormik } from "formik";
 import * as yup from "yup"
-import { userRegister } from "../../services/dbFunctions";
+import { userGetUserInfo, userRegister } from "../../services/dbFunctions";
 import { useNavigate } from "react-router-dom";
 import User from "../../interfaces/User";
 import { alertSuccess, alertError } from "../../services/alertFunctions";
-import { AdminContext, LoginContext } from "../../App";
+import { UserContext } from "../../App";
 
 
 interface FormRegisterProps {
@@ -14,24 +14,21 @@ interface FormRegisterProps {
 
 const FormRegister: FunctionComponent<FormRegisterProps> = () => {
     // Get Context
-    const [isLoggedIn, setIsLoggedIn] = useContext(LoginContext)
-    const [isAdmin, setIsAdmin] = useContext(AdminContext)
+    const [userInfo, setUserInfo] = useContext(UserContext)
 
     async function clientRegister(user: User) {
         try {
-            await userRegister(user).then((token: any) => {
-                // set token
-                sessionStorage.setItem("token", token.data)
+            // set token and userInfo
+            await userRegister(user).then((res) =>
+                sessionStorage.setItem("token", res.data)
+            )
+            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
 
-                // check admin
-                if (user.accountType === "admin") setIsAdmin(true)
-
-                // client response
-                alertSuccess(`New Account Created! Welcome ${user.email}`)
-                setIsLoggedIn(true)
-                navigate("/")
-            })
-        } catch (error: any) {
+            // client response
+            alertSuccess(`New Account Created! Welcome ${user.email}`)
+            navigate("/")
+        }
+        catch (error: any) {
             alertError(error.response.data)
         }
     }

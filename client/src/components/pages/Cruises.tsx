@@ -2,7 +2,6 @@ import { ChangeEvent, FunctionComponent, useContext, useState } from "react";
 import { CruiseContext } from "../../App";
 import PageTopImg from "../page_parts/PageTopImg";
 import Cruise from "../../interfaces/Cruise";
-import CruisCard from "../page_parts/CruiseCard";
 import CruiseCard from "../page_parts/CruiseCard";
 
 interface CruisesProps {
@@ -14,7 +13,7 @@ const Cruises: FunctionComponent<CruisesProps> = () => {
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
 
     // React Radio Handling Functions
-    const [selectedFilter, setSelectedFilter] = useState('all')
+    const [selectedFilter, setSelectedFilter] = useState("0")
     const isFilterSelected = (value: string) => selectedFilter === value
     const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => setSelectedFilter(e.currentTarget.value)
     // Display Filter
@@ -23,7 +22,7 @@ const Cruises: FunctionComponent<CruisesProps> = () => {
             case "0":
                 return (
                     cruisesData &&
-                    <div className="d-flex gap-5 flex-wrap justify-content-center mt-5">
+                    <div className="d-flex gap-5 flex-wrap justify-content-center mt-5" >
                         {
                             cruisesData.map((cruise: Cruise, i: number) =>
                                 <CruiseCard key={i} cruiseNum={cruise.cruiseNum} />
@@ -78,15 +77,15 @@ const Cruises: FunctionComponent<CruisesProps> = () => {
     return (
         <div className="my-5">
             {/* Page Top */}
-            <PageTopImg imgSrc="PageImg-Cruises.jpg" title="Cruises" subTitle="Explore The Ocean Your Way" />
+            <PageTopImg imgSrc="PageImg-Cruises.jpg" title="Cruises" subTitle="Explore everything" />
 
             {/* Header Card */}
             <div className="headerCard bgGradient1 d-flex gap-5 justify-content-center my-4">
-                <h1 className="sectionHeader">Filter</h1>
+                <h1 className="sectionHeader">Choose Your Filter</h1>
             </div>
 
             {/* Filters */}
-            <h4 className="text-center me-4"><i className="fa-regular fa-calendar-days me-3"></i>Base Price:</h4>
+            <h4 className="text-center me-4"><i className="fa-solid fa-tags me-3"></i>Starting Price:</h4>
             <form className="mt-4 d-flex justify-content-center flex-wrap">
                 <div className="d-flex">
                     <input type="radio" className="btn-check" id="radio0" name="radioFilter" value="0" checked={isFilterSelected("0")} onChange={handleRadioChange} />
@@ -116,27 +115,8 @@ const Cruises: FunctionComponent<CruisesProps> = () => {
                 </div>
             </form>
 
-
-
             {/* Card Showcase */}
             {displaySelectedRadio(selectedFilter)}
-
-
-            {/* OLD Cruises */}
-            {/* {
-                cruisesData ?
-                    <div className="d-flex gap-5 flex-wrap justify-content-center mt-5">
-                        {
-                            cruisesData.map((cruise: Cruise, i: number) => {
-                                return (
-                                    <CruisCard key={i} cruiseNum={cruise.cruiseNum} />
-                                )
-                            })
-                        }
-                    </div>
-                    :
-                    <p>Awaiting Data</p>
-            } */}
         </div>
     );
 }
