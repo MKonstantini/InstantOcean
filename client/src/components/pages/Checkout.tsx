@@ -7,11 +7,11 @@ interface CheckoutProps {
 
 const Checkout: FunctionComponent<CheckoutProps> = () => {
     return (
-        <section className="container my-5">
+        <div style={{ marginTop: "90px" }}>
             <header>
                 <h1 className='text-primary display-1'>Admin Tools</h1>
             </header>
-        </section>
+        </div>
     )
 }
 

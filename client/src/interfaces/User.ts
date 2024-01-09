@@ -3,5 +3,6 @@ export default interface User {
     lastname: string,
     email: string,
     password: string,
-    accountType: string
+    accountType: string,
+    favorites: number[]
 }

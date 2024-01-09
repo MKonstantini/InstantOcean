@@ -40,7 +40,7 @@ const Search: FunctionComponent<SearchProps> = () => {
     }
 
     return (
-        <div className="my-5">
+        <div style={{ marginTop: "90px" }}>
             {/* Page Top */}
             <PageTopImg title="Search" subTitle="Find exactly what you're looking for" imgSrc="PageImg-Search.jpg" />
 

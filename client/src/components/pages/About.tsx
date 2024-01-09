@@ -7,7 +7,7 @@ interface AboutProps {
 
 const About: FunctionComponent<AboutProps> = () => {
     return (
-        <div className="my-5">
+        <div style={{ marginTop: "90px" }}>
             {/* Page Top */}
             <PageTopImg title="About" subTitle="Creating something different" imgSrc="PageImg-About.jpg" />
 

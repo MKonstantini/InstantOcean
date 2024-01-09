@@ -42,11 +42,11 @@ export function cruiseGetAll(){
     return axios.get(`${api}/cruises`)
 }
 export function cruisePost(cruise: Cruise){
-    axios.post(`${api}/cruises`, cruise)
+    return axios.post(`${api}/cruises`, cruise)
 }
-export function cruiseDelete(name: string){
-    axios.delete(`${api}/cruises`, {data: {name: name}})
+export function cruiseDelete(cruiseNum: number){
+    return axios.delete(`${api}/cruises`, {data: {cruiseNum: cruiseNum}})
 }
-export function cruisePatch(name: string, editedCruise: Cruise){
-    axios.patch(`${api}/cruises/${name}`, editedCruise)
+export function cruisePatch(editedCruise: Cruise){
+    return axios.patch(`${api}/cruises`, editedCruise)
 }

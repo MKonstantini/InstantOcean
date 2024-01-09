@@ -18,8 +18,33 @@ const Favorites: FunctionComponent<FavoritesProps> = () => {
         if (!userInfo) navigate(-1)
     }, [])
 
+    const displayFavorites = () => {
+        if (cruisesData && userInfo) {
+            return (
+                userInfo.favorites > 0 ?
+                    <div className="d-flex gap-5 flex-wrap justify-content-center mt-5">
+                        {
+                            cruisesData.map((cruise: Cruise, i: number) => {
+                                if (
+                                    userInfo.favorites.includes(cruise.cruiseNum)
+                                ) {
+                                    return (
+                                        <CruiseCard key={i} cruiseNum={cruise.cruiseNum} />
+                                    )
+                                }
+                            })
+                        }
+                    </div>
+                    : <div className="mt-3 d-flex flex-column align-items-center">
+                        <h4 className="mb-3">No Favorites To Display</h4>
+                        <button className="btn btn-outline-secondary" onClick={() => navigate("/cruises")}>Browse our cruises</button>
+                    </div>
+            )
+        }
+    }
+
     return (
-        <div className="my-5">
+        <div style={{ marginTop: "90px" }}>
             {/* Page Top */}
             <PageTopImg title="Favorites" subTitle="Your personal collection" imgSrc="PageImg-Favorites.jpg" />
 
@@ -30,23 +55,9 @@ const Favorites: FunctionComponent<FavoritesProps> = () => {
 
             {/* Cards Display */}
             {
-                cruisesData && userInfo &&
-                <div className="d-flex gap-5 flex-wrap justify-content-center mt-5">
-                    {
-                        cruisesData.map((cruise: Cruise, i: number) => {
-                            if (
-                                userInfo.favorites.includes(cruise.cruiseNum)
-                            ) {
-                                return (
-                                    <CruiseCard key={i} cruiseNum={cruise.cruiseNum} />
-                                )
-                            }
-                        })
-                    }
-                </div>
+                displayFavorites()
             }
-
-        </div >
+        </div>
     );
 }
 

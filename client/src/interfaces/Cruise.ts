@@ -6,6 +6,5 @@ export default interface Cruise {
     ports: string,
     img: string,
     startDate: string,
-    startPrice: number,
-    favorites: number[]
+    startPrice: number
 }

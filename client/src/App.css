@@ -16,7 +16,7 @@ body {
 .vidCard {
   position: relative;
   width: 100%;
-  height: 38rem;
+  height: 30rem;
 }
 .vidPlayer {
   position: relative;
@@ -24,7 +24,7 @@ body {
   height: 100%;
   object-fit: cover;
 }
-.vidOverlay {
+.gradientOverlay {
   position: absolute;
   top: 0;
   width: 100%;
@@ -33,14 +33,13 @@ body {
 }
 .vidText{
   position: absolute;
-  top: 5.5rem;
-  width: 100%;
-  height: 100%;
+  top: 3rem;
   padding: 4rem;
   color: white;
 }
 .vidText h1{
   font-size: 50pt;
+  font-weight: 800;
 }
 /* General Background Img/Video Fills */
 .generalFill{
@@ -115,14 +114,14 @@ body {
   background-color: #fff;
 }
 
-/* Page Title */
+/* Page Top */
 .pageTitle{
   font-size: 50pt;
   font-weight: bold;
   color: white;
   position: absolute;
   z-index: 1;
-  margin-top: 7rem;
+  margin-top: 5rem;
   margin-left: 5rem;
 }
 .pageSubTitle{
@@ -130,6 +129,6 @@ body {
   color: white;
   position: absolute;
   z-index: 1;
-  margin-top: 12.2rem;
-  margin-left: 5.2rem;
+  margin-top: 10rem;
+  margin-left: 5rem;
 }

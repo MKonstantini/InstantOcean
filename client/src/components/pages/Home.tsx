@@ -13,20 +13,20 @@ const Home: FunctionComponent<HomeProps> = () => {
     const navigate = useNavigate()
 
     return (
-        <div>
+        <div style={{ marginTop: "90px" }}>
             {/* VideoCard */}
-            <section className="vidCard py-4">
+            <section className="vidCard">
                 <video className="vidPlayer" src="OceanVideo.mp4" autoPlay loop muted />
-                <div className="vidOverlay"></div>
+                <div className="gradientOverlay"></div>
                 <div className="vidText">
-                    <h1 className="mt-5" style={{ fontWeight: "800" }}>Instant Ocean</h1>
+                    <h1>Instant Ocean</h1>
                     <h2>From booking to cruising in a heartbeat</h2>
                     <button onClick={() => navigate('cruises')} className="btn btn-light mt-4 px-5 py-2">Book Now</button>
                 </div>
             </section>
 
             {/* Special Offers */}
-            <section>
+            <section className="my-4">
                 {/* Header Card */}
                 <div className="headerCard bgGradient1 d-flex gap-5 justify-content-center mb-4">
                     <div style={{ width: "80px" }}></div>
@@ -68,15 +68,8 @@ const Home: FunctionComponent<HomeProps> = () => {
                 </div>
             </section>
 
-
-            {/* Sales Pitch */}
-            <section></section>
-
-
-            {/* Ocean-Phobia */}
-            <section></section>
-
-
+            {/* Sales Pitch Section?*/}
+            {/* Ocean-Phobia Section? */}
         </div>
     );
 }

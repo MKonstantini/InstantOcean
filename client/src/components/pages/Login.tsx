@@ -44,7 +44,7 @@ const Login: FunctionComponent<LoginProps> = () => {
     }
 
     return (
-        <div className="d-flex flex-wrap justify-content-center position-relative" style={{ marginTop: "5rem" }}>
+        <div className="d-flex flex-wrap justify-content-center position-relative" style={{ marginTop: "90px" }}>
             {/* Background Img */}
             <img src="LoginImg1.jpg" alt="loginImg" className="generalFill" />
 

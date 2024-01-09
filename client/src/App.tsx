@@ -19,6 +19,7 @@ import Search from './components/pages/Search';
 import Favorites from './components/pages/Favorites';
 import Login from './components/pages/Login';
 import AdminTools from "./components/pages/AdminTools";
+import AdminToolsEditor from "./components/pages/AdminToolsEditor";
 
 // Context
 export const CruiseContext = createContext<any>(null)
@@ -45,7 +46,6 @@ function App() {
     }
   }, [])
 
-
   return (
     <CruiseContext.Provider value={[cruisesData, setCruisesData]}>
       <UserContext.Provider value={[userInfo, setUserInfo]}>
@@ -66,6 +66,7 @@ function App() {
             <Route path='/login' element={<Login />} />
 
             <Route path='/admintools' element={<AdminTools />} />
+            <Route path='/admintools/:cruiseNum' element={<AdminToolsEditor />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
           <Footer />

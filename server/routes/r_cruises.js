@@ -57,7 +57,7 @@ router.post("/", async (req, res) => {
 router.delete("/", async(req, res) => {
     try {
         // delete cruise
-        const cruise = await Cruise.findOneAndDelete({name: req.body.name })
+        const cruise = await Cruise.findOneAndDelete({cruiseNum: req.body.cruiseNum })
         
         // return if no cruise found
         if (!cruise) return res.status(404).send("cruise not found!")
@@ -71,7 +71,7 @@ router.delete("/", async(req, res) => {
 })
 
 // UPDATE CRUISE
-router.patch("/:cruiseNum", async(req, res) => {
+router.patch("/", async(req, res) => {
     // req.body should contain the new edited info
     try {
         // joi validation

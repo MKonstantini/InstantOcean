@@ -6,11 +6,11 @@ interface DiningProps {
 
 const Dining: FunctionComponent<DiningProps> = () => {
     return (
-        <section className="container my-5">
+        <div style={{ marginTop: "90px" }}>
             <header>
                 <h1 className='text-primary display-1'>Dining Rooms</h1>
             </header>
-        </section>
+        </div>
     );
 }
 

@@ -75,7 +75,7 @@ const Cruises: FunctionComponent<CruisesProps> = () => {
     }
 
     return (
-        <div className="my-5">
+        <div style={{ marginTop: "90px" }}>
             {/* Page Top */}
             <PageTopImg imgSrc="PageImg-Cruises.jpg" title="Cruises" subTitle="Explore everything" />
 
