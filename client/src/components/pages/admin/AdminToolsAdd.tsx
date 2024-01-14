@@ -1,20 +1,18 @@
 import { FunctionComponent, useContext, useEffect } from "react";
-import { CruiseContext, UserContext } from "../../App";
+import { CruiseContext, UserContext } from "../../../App";
 import { useNavigate, useParams } from "react-router-dom";
-import PageTopImg from "../page_parts/PageTopImg";
-import FormCRUDEditor from "../page_parts/FormCRUDEditor";
+import PageTopImg from "../../page_parts/PageTopImg";
+import FormCRUDAdd from "./FormCruiseAdd";
 
-interface AdminToolsEditorProps {
+interface AdminToolsAddProps {
 
 }
 
-const AdminToolsEditor: FunctionComponent<AdminToolsEditorProps> = () => {
+const AdminToolsAdd: FunctionComponent<AdminToolsAddProps> = () => {
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
     const [userInfo, setUserInfo] = useContext(UserContext)
 
     const navigate = useNavigate()
-    const { cruiseNum } = useParams()
-    console.log(cruiseNum)
 
     // admin check
     useEffect(() => {
@@ -25,15 +23,15 @@ const AdminToolsEditor: FunctionComponent<AdminToolsEditorProps> = () => {
         <div style={{ marginTop: "90px" }}>
             {/* Header Banner */}
             <div className="headerCard bgGradient1 d-flex gap-5 justify-content-center my-4">
-                <h1 className="sectionHeader">Chosen Cruise Editor</h1>
+                <h1 className="sectionHeader">Add New Cruise</h1>
             </div>
 
-            {/* Editor */}
+            {/* Add */}
             {
-                cruiseNum &&
+                cruisesData &&
                 <div className="d-flex flex-column align-items-center">
-                    <h6 className="fw-bold">Edit Cruise : {cruisesData[cruiseNum].name}</h6>
-                    <FormCRUDEditor initialCruise={cruisesData[cruiseNum]} />
+                    <h6 className="fw-bold">Add Cruise:</h6>
+                    <FormCRUDAdd />
                 </div>
             }
 
@@ -41,4 +39,4 @@ const AdminToolsEditor: FunctionComponent<AdminToolsEditorProps> = () => {
     );
 }
 
-export default AdminToolsEditor;
+export default AdminToolsAdd;

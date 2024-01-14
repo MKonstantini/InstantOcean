@@ -1,10 +1,8 @@
 import { FunctionComponent, useContext, useEffect, useState } from "react";
-import { CruiseContext, UserContext } from "../../App";
+import { CruiseContext, UserContext } from "../../../App";
 import { useNavigate } from "react-router-dom";
-import PageTopImg from "../page_parts/PageTopImg";
-import Cruise from "../../interfaces/Cruise";
-import CruiseCard from "../page_parts/CruiseCard";
-import FormCRUDEditor from "../page_parts/FormCRUDEditor";
+import PageTopImg from "../../page_parts/PageTopImg";
+import Cruise from "../../../interfaces/Cruise";
 
 interface AdminToolsProps {
 
@@ -40,7 +38,7 @@ const AdminTools: FunctionComponent<AdminToolsProps> = () => {
     const displayCRUDChart = () => {
         return (
             cruisesData &&
-            <div className="row mt-3 m-5 text-center">
+            <div className="row mt-3 mb-4 m-5 text-center">
                 <table>
                     <thead>
                         <tr>
@@ -66,7 +64,7 @@ const AdminTools: FunctionComponent<AdminToolsProps> = () => {
                                     <td>{dateFormatter(cruise.startDate)}</td>
                                     <td>$ {cruise.startPrice}</td>
                                     <td>
-                                        <button className="btn" onClick={() => navigate(`/admintools/${i}`)} style={{ color: "darkblue" }}>
+                                        <button className="btn" onClick={() => navigate(`/admintools/${i}`)} style={{ color: "grey" }}>
                                             <i className="fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </td>
@@ -94,16 +92,12 @@ const AdminTools: FunctionComponent<AdminToolsProps> = () => {
                 displayCRUDChart()
             }
 
-            {/* Editor */}
-            {
-                selectedCruise &&
-                <div className="d-flex flex-column align-items-center">
-                    <h6 className="fw-bold">CHOSEN CRUISE EDITOR</h6>
-                    <FormCRUDEditor initialCruise={cruisesData[selectedCruise]} />
-                </div>
-            }
-            <h5>{selectedCruise}</h5>
-
+            {/* Add Cruise */}
+            <div className="d-flex justify-content-center my-4">
+                <button className="btn btn-outline-secondary px-5" onClick={() => navigate("/admintools/add")}>
+                    Add Cruise
+                </button>
+            </div>
         </div>
     );
 }

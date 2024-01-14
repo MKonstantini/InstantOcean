@@ -18,8 +18,9 @@ import NotFound from './components/pages/NotFound';
 import Search from './components/pages/Search';
 import Favorites from './components/pages/Favorites';
 import Login from './components/pages/Login';
-import AdminTools from "./components/pages/AdminTools";
-import AdminToolsEditor from "./components/pages/AdminToolsEditor";
+import AdminTools from "./components/pages/admin/AdminTools";
+import AdminToolsAdd from "./components/pages/admin/AdminToolsAdd";
+import AdminToolsEdit from "./components/pages/admin/AdminToolsEdit";
 
 // Context
 export const CruiseContext = createContext<any>(null)
@@ -66,7 +67,8 @@ function App() {
             <Route path='/login' element={<Login />} />
 
             <Route path='/admintools' element={<AdminTools />} />
-            <Route path='/admintools/:cruiseNum' element={<AdminToolsEditor />} />
+            <Route path='/admintools/add' element={<AdminToolsAdd />} />
+            <Route path='/admintools/:cruiseNum' element={<AdminToolsEdit />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
           <Footer />

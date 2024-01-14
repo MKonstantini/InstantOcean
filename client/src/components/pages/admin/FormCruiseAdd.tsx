@@ -1,29 +1,29 @@
 import { FunctionComponent, useContext } from "react";
 import { FormikProvider, useFormik } from "formik";
 import * as yup from "yup"
-import { cruisePatch } from "../../services/dbFunctions";
+import { cruisePost } from "../../../services/dbFunctions";
 import { useNavigate } from "react-router-dom";
-import { alertSuccess, alertError } from "../../services/alertFunctions";
-import { CruiseContext } from "../../App";
-import Cruise from "../../interfaces/Cruise";
+import { alertSuccess, alertError } from "../../../services/alertFunctions";
+import { CruiseContext } from "../../../App";
+import Cruise from "../../../interfaces/Cruise";
 
 
-interface FormCRUDEditorProps {
-    initialCruise: Cruise
+interface FormCruiseAddProps {
+
 }
 
-const FormCRUDEditor: FunctionComponent<FormCRUDEditorProps> = ({ initialCruise }) => {
+const FormCruiseAdd: FunctionComponent<FormCruiseAddProps> = () => {
     // Get Context
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
     const navigate = useNavigate()
 
-    async function patchCruise(cruise: Cruise) {
+    async function postCruise(cruise: Cruise) {
         try {
             // set token and userInfo
-            await cruisePatch(cruise)
+            await cruisePost(cruise)
 
             // client response
-            alertSuccess(`Success! Cruise has been patched`)
+            alertSuccess(`Success! Cruise has been added. Data will be updated shortly`)
             navigate("/admintools")
         }
         catch (error: any) {
@@ -41,14 +41,14 @@ const FormCRUDEditor: FunctionComponent<FormCRUDEditorProps> = ({ initialCruise 
 
     let formik = useFormik({
         initialValues: {
-            cruiseNum: initialCruise.cruiseNum,
-            name: initialCruise.name,
-            duration: initialCruise.duration,
-            departFrom: initialCruise.departFrom,
-            ports: initialCruise.ports,
-            img: initialCruise.img,
-            startDate: initialCruise.startDate,
-            startPrice: initialCruise.startPrice
+            cruiseNum: cruisesData.length + 1,
+            name: "name",
+            duration: 1,
+            departFrom: "home",
+            ports: "ports",
+            img: "img",
+            startDate: "1/1/2024",
+            startPrice: 100
         },
         validationSchema: yup.object({
             cruiseNum: yup.number().required(),
@@ -61,17 +61,16 @@ const FormCRUDEditor: FunctionComponent<FormCRUDEditorProps> = ({ initialCruise 
             startPrice: yup.number()
         }),
         onSubmit: (values, { resetForm }) => {
-            patchCruise(values)
+            postCruise(values)
             resetForm()
         }
-
     })
 
     return (
         <FormikProvider value={formik}>
             <form onSubmit={formik.handleSubmit} className="d-flex flex-column">
                 <div className="d-flex">
-                    {/* Name */}
+                    {/* name */}
                     <div className="d-flex flex-column m-2">
                         <div className="form-floating m-1">
                             <input
@@ -253,14 +252,7 @@ const FormCRUDEditor: FunctionComponent<FormCRUDEditorProps> = ({ initialCruise 
                         disabled={!formik.isValid}
                         className="btn btn-outline-secondary mt-3 mb-5" style={{ width: "11rem" }}>
                         <i className="fa-solid fa-check me-2"></i>
-                        Confirm Changes
-                    </button>
-                    <button
-                        type="button"
-                        disabled={!formik.isValid}
-                        className="btn btn-outline-danger mt-3 mb-5" style={{ width: "6rem" }}>
-                        <i className="fa-solid fa-trash me-2"></i>
-                        Delete
+                        Add Cruise
                     </button>
                 </div>
             </form>
@@ -268,4 +260,4 @@ const FormCRUDEditor: FunctionComponent<FormCRUDEditorProps> = ({ initialCruise 
     );
 }
 
-export default FormCRUDEditor;
+export default FormCruiseAdd;

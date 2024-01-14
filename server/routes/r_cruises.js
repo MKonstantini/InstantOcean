@@ -79,7 +79,7 @@ router.patch("/", async(req, res) => {
         if (error) return res.status(400).send(error) 
 
         // update cruise
-        const cruise = await Cruise.findOneAndUpdate({cruiseNum: req.params.cruiseNum}, req.body, {new: true})
+        const cruise = await Cruise.findOneAndUpdate({cruiseNum: req.body.cruiseNum}, req.body, {new: true})
 
         // return updated cruise
         res.status(201).send(cruise)
