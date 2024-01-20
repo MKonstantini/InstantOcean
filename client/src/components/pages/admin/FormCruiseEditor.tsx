@@ -19,11 +19,11 @@ const FormCruiseEditor: FunctionComponent<FormCruiseEditorProps> = ({ initialCru
 
     async function patchCruise(cruise: Cruise) {
         try {
-            // set token and userInfo
+            // db function
             await cruisePatch(cruise)
 
             // client response
-            alertSuccess(`Success! Cruise has been patched. Data will be updated shortly`)
+            alertSuccess(`Success! Cruise has been edited. Data will be updated shortly`)
             navigate("/")
         }
         catch (error: any) {
@@ -40,9 +40,18 @@ const FormCruiseEditor: FunctionComponent<FormCruiseEditorProps> = ({ initialCru
     }
 
     // delete cruise
-    const deleteCruise = () => {
-        cruiseDelete(initialCruise.cruiseNum)
-        navigate("/")
+    async function deleteCruise() {
+        try {
+            // db function
+            await cruiseDelete(initialCruise.cruiseNum)
+
+            // client response
+            alertSuccess(`Success! Cruise has been deleted. Data will be updated shortly`)
+            navigate("/")
+        }
+        catch (error: any) {
+            alertError(error.response.data)
+        }
     }
 
     let formik = useFormik({
