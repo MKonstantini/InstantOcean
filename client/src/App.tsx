@@ -9,9 +9,6 @@ import { cruiseGetAll, userGetUserInfo } from "./services/dbFunctions";
 import Navbar from './components/misc/Navbar';
 import Home from './components/pages/Home';
 import Cruises from './components/pages/Cruises';
-import Destinations from './components/pages/Destinations';
-import Activities from './components/pages/Activities';
-import Dining from './components/pages/Dining';
 import About from './components/pages/About';
 import Footer from './components/misc/Footer';
 import NotFound from './components/pages/NotFound';
@@ -21,6 +18,7 @@ import Login from './components/pages/Login';
 import AdminTools from "./components/pages/admin/AdminTools";
 import AdminToolsAdd from "./components/pages/admin/AdminToolsAdd";
 import AdminToolsEdit from "./components/pages/admin/AdminToolsEdit";
+import Checkout from "./components/pages/Checkout";
 
 // Context
 export const CruiseContext = createContext<any>(null)
@@ -58,10 +56,6 @@ function App() {
             <Route path='/cruises' element={<Cruises />} />
             <Route path='/about' element={<About />} />
 
-            <Route path='/destinations' element={<Destinations />} />
-            <Route path='/activities' element={<Activities />} />
-            <Route path='/dining' element={<Dining />} />
-
             <Route path='/search' element={<Search />} />
             <Route path='/favorites' element={<Favorites />} />
             <Route path='/login' element={<Login />} />
@@ -69,6 +63,8 @@ function App() {
             <Route path='/admintools' element={<AdminTools />} />
             <Route path='/admintools/add' element={<AdminToolsAdd />} />
             <Route path='/admintools/:cruiseNum' element={<AdminToolsEdit />} />
+
+            <Route path='/checkout/:cruiseNum' element={<Checkout />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
           <Footer />

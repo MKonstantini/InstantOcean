@@ -3,12 +3,14 @@ import Cruise from "../../interfaces/Cruise";
 import { CruiseContext, UserContext } from "../../App";
 import { userGetUserInfo, userPatchFavorites } from "../../services/dbFunctions";
 import { alertError } from "../../services/alertFunctions";
+import { useNavigate } from "react-router-dom";
 
 interface CruisCardProps {
     cruiseNum: number
 }
 
 const CruisCard: FunctionComponent<CruisCardProps> = ({ cruiseNum }) => {
+    const navigate = useNavigate()
     // context
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
     const [userInfo, setUserInfo] = useContext(UserContext)
@@ -103,7 +105,7 @@ const CruisCard: FunctionComponent<CruisCardProps> = ({ cruiseNum }) => {
                 {/* btn */}
                 <hr />
                 <div className="d-flex justify-content-center mt-3">
-                    <button className="styledBtn">Book Now</button>
+                    <button className="styledBtn" onClick={() => navigate(`/checkout/${cruiseNum}`)}>Book Now</button>
                 </div>
             </div>
         </div>

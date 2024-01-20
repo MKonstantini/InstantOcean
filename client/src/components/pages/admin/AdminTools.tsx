@@ -21,11 +21,6 @@ const AdminTools: FunctionComponent<AdminToolsProps> = () => {
         if (!userInfo || userInfo.accountType !== "admin") navigate("/")
     }, [])
 
-    useEffect(() => {
-        console.log(selectedCruise)
-    })
-
-
     // date formatter to DD/MM/YYYY
     const dateFormatter = (dateStr: string) => {
         const date = new Date(dateStr)
