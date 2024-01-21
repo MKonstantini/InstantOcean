@@ -56,7 +56,6 @@ const FormRegister: FunctionComponent<FormRegisterProps> = () => {
             clientRegister(values)
             resetForm()
         }
-
     })
 
     return (
