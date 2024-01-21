@@ -30,17 +30,17 @@ function App() {
   const [cruisesData, setCruisesData] = useState(null)
   const [userInfo, setUserInfo] = useState(null)
 
+  // Set Data On Load
   useEffect(() => {
+    // CruisesData
     cruiseGetAll().then((res) => (setCruisesData(res.data)))
-  }, [])
-
-  // Check For User On Load
-  useEffect(() => {
-    if (sessionStorage.getItem("token") != null) {
-      // get user info from DB with token
-      const token: any = sessionStorage.getItem("token")
+    // UserInfo
+    const token: any = sessionStorage.getItem("token")
+    if (token != null) {
       userGetUserInfo(token).then((res) => {
         setUserInfo(res.data)
+        // Favorites
+        sessionStorage.setItem("favorites", res.data.favorites)
       })
     }
   }, [])

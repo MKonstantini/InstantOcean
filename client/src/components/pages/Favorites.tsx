@@ -13,20 +13,26 @@ const Favorites: FunctionComponent<FavoritesProps> = () => {
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
     const [userInfo, setUserInfo] = useContext(UserContext)
 
+    // get favorites as array
+    let favorites: any = sessionStorage.getItem("favorites")
+    favorites = favorites?.split(',').map((i: string) => parseInt(i))
+    console.log(favorites)
+
+    // evict user from page if not logged in
     const navigate = useNavigate()
     useEffect(() => {
         if (!userInfo) navigate(-1)
     }, [])
 
     const displayFavorites = () => {
-        if (cruisesData && userInfo) {
+        if (cruisesData) {
             return (
-                userInfo.favorites > 0 ?
+                favorites.length > 0 ?
                     <div className="d-flex gap-5 flex-wrap justify-content-center mt-5">
                         {
                             cruisesData.map((cruise: Cruise, i: number) => {
                                 if (
-                                    userInfo.favorites.includes(cruise.cruiseNum)
+                                    favorites.includes(cruise.cruiseNum)
                                 ) {
                                     return (
                                         <CruiseCard key={i} cruiseNum={cruise.cruiseNum} />

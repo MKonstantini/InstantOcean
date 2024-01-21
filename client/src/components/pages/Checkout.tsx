@@ -46,7 +46,6 @@ const Checkout: FunctionComponent<CheckoutProps> = () => {
         }
     })
 
-
     return (
         <div style={{ marginTop: "90px" }}>
             {/* Header Banner */}
