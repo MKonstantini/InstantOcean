@@ -1,6 +1,6 @@
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
 import './App.css';
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { cruiseGetAll, userGetUserInfo } from "./services/dbFunctions";
@@ -10,15 +10,15 @@ import Navbar from './components/misc/Navbar';
 import Home from './components/pages/Home';
 import Cruises from './components/pages/Cruises';
 import About from './components/pages/About';
-import Footer from './components/misc/Footer';
-import NotFound from './components/pages/NotFound';
 import Search from './components/pages/Search';
 import Favorites from './components/pages/Favorites';
 import Login from './components/pages/Login';
+import Checkout from "./components/pages/Checkout";
 import AdminTools from "./components/pages/admin/AdminTools";
 import AdminToolsAdd from "./components/pages/admin/AdminToolsAdd";
 import AdminToolsEdit from "./components/pages/admin/AdminToolsEdit";
-import Checkout from "./components/pages/Checkout";
+import Footer from './components/misc/Footer';
+import NotFound from './components/pages/NotFound';
 
 // Context
 export const CruiseContext = createContext<any>(null)

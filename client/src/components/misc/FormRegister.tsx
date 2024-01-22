@@ -16,6 +16,9 @@ const FormRegister: FunctionComponent<FormRegisterProps> = () => {
     // Get Context
     const [userInfo, setUserInfo] = useContext(UserContext)
 
+    // Regex for password : min 1 uppercase, min 1 lowercase, min 1 symbol, min 1 number, min 8 characters, max 30 characters
+    const regexValidation = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/
+
     async function clientRegister(user: User) {
         try {
             // set token and userInfo
@@ -51,7 +54,7 @@ const FormRegister: FunctionComponent<FormRegisterProps> = () => {
             firstname: yup.string().required("first name is a required field"),
             lastname: yup.string().required("last name is a required field"),
             email: yup.string().email().required(),
-            password: yup.string().required(),
+            password: yup.string().required().matches(regexValidation, "Password must contain at least 8 characters, one uppercase, one number and one symbol"),
             accountType: yup.string().required(),
             favorites: yup.array()
         }),
@@ -152,7 +155,7 @@ const FormRegister: FunctionComponent<FormRegisterProps> = () => {
                     {
                         formik.touched.password &&
                         formik.errors.password &&
-                        <small className="text-center">{formik.errors.password}</small>
+                        <small className="text-center" style={{ maxWidth: "210px" }}>{formik.errors.password}</small>
                     }
                 </div>
 

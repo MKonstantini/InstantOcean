@@ -1,6 +1,7 @@
 // SERVER
 const express = require("express")
 const app = express()
+const morgan = require("morgan")
 
 // CORS
 const cors = require("cors")
@@ -20,8 +21,9 @@ mongoose
 
 // API
 // Middleware
-app.use(express.json())
+app.use(morgan("combined"))
 app.use(express.urlencoded({extended : true}))
+app.use(express.json())
 // Routes
 const r_users = require("./routes/r_users")
 app.use("/api/users", r_users)

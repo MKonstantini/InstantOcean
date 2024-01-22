@@ -55,7 +55,7 @@ const Login: FunctionComponent<LoginProps> = () => {
             <img src="PageImg-Login.jpg" alt="loginImg" className="generalFill" />
 
             {/* Leftside - Login */}
-            <div className="text-center m-5 p-2" style={{ backgroundColor: "white", border: "1px solid lightgrey", borderRadius: "20px", maxWidth: "330px" }}>
+            <div className="text-center m-5 p-2" style={{ backgroundColor: "white", border: "1px solid lightgrey", borderRadius: "20px", width: "400px" }}>
                 <header className="my-5">
                     <i className="fa-solid fa-circle-user mb-2" style={{ fontSize: "2rem" }}></i>
                     <h1>Login</h1>
@@ -65,7 +65,8 @@ const Login: FunctionComponent<LoginProps> = () => {
                 <FormLogin />
 
                 {/* Demo Users */}
-                <div>
+                <hr />
+                <div className="mt-4 pt-3">
                     <h5>Demo Users</h5>
                     {/* Regular */}
                     <button type="button" className="btn btn-outline-primary mt-4" style={{ width: "12rem" }} onClick={demoRegularLogin}> <i className="fa-solid fa-user me-2"></i>Demo Regular User</button>
@@ -75,7 +76,7 @@ const Login: FunctionComponent<LoginProps> = () => {
             </div>
 
             {/* Rightside - Register */}
-            <div className="text-center m-5 px-5 pt-2" style={{ backgroundColor: "white", border: "1px solid lightgrey", borderRadius: "20px", maxWidth: "330px" }}>
+            <div className="text-center m-5 px-5 pt-2" style={{ backgroundColor: "white", border: "1px solid lightgrey", borderRadius: "20px", width: "400px" }}>
                 <header className="my-5">
                     <i className="fa-solid fa-user-plus my-2" style={{ fontSize: "1.6rem" }}></i>
                     <h1>Register</h1>
