@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import PageTopImg from "../page_parts/PageTopImg";
 
 interface AboutProps {
@@ -6,6 +6,11 @@ interface AboutProps {
 }
 
 const About: FunctionComponent<AboutProps> = () => {
+    // scroll to top on load
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     return (
         <div style={{ marginTop: "90px" }}>
             {/* Page Top */}

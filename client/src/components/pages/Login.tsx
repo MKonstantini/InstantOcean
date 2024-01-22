@@ -24,7 +24,7 @@ const Login: FunctionComponent<LoginProps> = () => {
             alertSuccess("Welcome to the demo! Authorization: Regular Account")
             await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => {
                 setUserInfo(res.data)
-                sessionStorage.setItem("favorites", res.data.favorites as string)
+                sessionStorage.setItem("userInfo", JSON.stringify(res.data))
             })
             navigate("/")
         } catch (error: any) {
@@ -41,7 +41,7 @@ const Login: FunctionComponent<LoginProps> = () => {
             alertSuccess("Welcome to the demo! Authorization: Admin Account")
             await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => {
                 setUserInfo(res.data)
-                sessionStorage.setItem("favorites", res.data.favorites as string)
+                sessionStorage.setItem("userInfo", JSON.stringify(res.data))
             })
             navigate("/")
         } catch (error: any) {
@@ -52,7 +52,7 @@ const Login: FunctionComponent<LoginProps> = () => {
     return (
         <div className="d-flex flex-wrap justify-content-center position-relative" style={{ marginTop: "90px" }}>
             {/* Background Img */}
-            <img src="LoginImg1.jpg" alt="loginImg" className="generalFill" />
+            <img src="PageImg-Login.jpg" alt="loginImg" className="generalFill" />
 
             {/* Leftside - Login */}
             <div className="text-center m-5 p-2" style={{ backgroundColor: "white", border: "1px solid lightgrey", borderRadius: "20px", maxWidth: "330px" }}>

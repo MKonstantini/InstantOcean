@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
     }
 })
 
-// DELETE CRUISE VIA NAME
+// DELETE CRUISE
 router.delete("/", async(req, res) => {
     try {
         // delete cruise

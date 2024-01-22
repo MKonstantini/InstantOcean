@@ -17,21 +17,18 @@ const Favorites: FunctionComponent<FavoritesProps> = () => {
     const navigate = useNavigate()
     useEffect(() => {
         if (!userInfo) navigate(-1)
+        window.scrollTo(0, 0)
     }, [])
-
-    // get favorites as array
-    let favorites: any = sessionStorage.getItem("favorites")
-    favorites = favorites?.split(',').map((i: string) => parseInt(i))
 
     const displayFavorites = () => {
         if (cruisesData) {
             return (
-                favorites.length > 0 ?
+                userInfo.favorites.length > 0 ?
                     <div className="d-flex gap-5 flex-wrap justify-content-center mt-5">
                         {
                             cruisesData.map((cruise: Cruise, i: number) => {
                                 if (
-                                    favorites.includes(cruise.cruiseNum)
+                                    userInfo.favorites.includes(cruise.cruiseNum)
                                 ) {
                                     return (
                                         <CruiseCard key={i} cruiseNum={cruise.cruiseNum} />

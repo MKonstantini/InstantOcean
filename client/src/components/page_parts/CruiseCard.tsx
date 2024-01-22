@@ -1,8 +1,6 @@
 import { FunctionComponent, useContext } from "react";
 import Cruise from "../../interfaces/Cruise";
-import { CruiseContext, UserContext } from "../../App";
-import { userGetUserInfo, userPatchFavorites } from "../../services/dbFunctions";
-import { alertError } from "../../services/alertFunctions";
+import { CruiseContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import FavoritesBtn from "../page_parts/FavoritesBtn"
 
@@ -14,9 +12,6 @@ const CruisCard: FunctionComponent<CruisCardProps> = ({ cruiseNum }) => {
     const navigate = useNavigate()
     // context
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
-    const [userInfo, setUserInfo] = useContext(UserContext)
-
-    // props
     const cruiseObj: Cruise = cruisesData[cruiseNum - 1]
 
     // date calculations and formatting
@@ -29,56 +24,11 @@ const CruisCard: FunctionComponent<CruisCardProps> = ({ cruiseNum }) => {
     const date2 = addDays(date1, 7)
     const date3 = addDays(date1, 14)
 
-    // get favorites as array
-    let favorites: any = sessionStorage.getItem("favorites")
-    favorites = favorites?.split(',').map((i: string) => parseInt(i))
-
-    // toggle favorite
-    function toggleFavorite() {
-        if (!userInfo) {
-            // error alert if not logged in
-            alertError("Login to access the favorites feature!")
-
-        } else if (favorites.includes(cruiseNum)) {
-            console.log(favorites)
-            // if cruise is in favorites - remove cruiseNum from favorites
-            favorites = favorites.splice(favorites.indexOf(cruiseNum), 1)
-            sessionStorage.setItem("favorites", favorites)
-            // db patch favorites
-            userPatchFavorites(
-                sessionStorage.getItem("token") as string, favorites
-            )
-            // patch userInfo context
-            userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
-        } else {
-            console.log(favorites)
-            // if cruise is not in favorites - add cruiseNum to favorites
-            favorites = favorites.push(cruiseNum)
-            sessionStorage.setItem("favorites", favorites)
-            // patch userInfo context
-            userInfo.favorites.push(cruiseNum)
-            // db patch favorites
-            userPatchFavorites(
-                sessionStorage.getItem("token") as string, favorites
-            )
-            // patch userInfo context
-            userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
-        }
-    }
-
     return (
         <div className="card position-relative">
-            {/* favorites btn */}
-            <button className="heartBtn" onClick={toggleFavorite}>
-                {
-                    userInfo && userInfo.favorites.includes(cruiseObj.cruiseNum) ?
-                        <i className="fa-solid fa-heart"></i> :
-                        <i className="fa-regular fa-heart"></i>
-                }
-            </button>
             <FavoritesBtn cruiseNum={cruiseNum} />
             {/* img */}
-            <img src={cruiseObj.img} className="card-img-top" alt="cruisImg" style={{ maxWidth: "30rem", maxHeight: "14rem", objectFit: "cover" }} />
+            <img src={cruiseObj.img} className="card-img-top" alt="Missing Cruise Img!" style={{ maxWidth: "30rem", maxHeight: "14rem", objectFit: "cover" }} />
             {/* body */}
             <div className="card-body m-1">
                 {/* title */}

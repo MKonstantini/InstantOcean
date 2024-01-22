@@ -30,7 +30,7 @@ function App() {
   const [cruisesData, setCruisesData] = useState(null)
   const [userInfo, setUserInfo] = useState(null)
 
-  // Set Data On Load
+  // Set Data On App Load
   useEffect(() => {
     // CruisesData
     cruiseGetAll().then((res) => (setCruisesData(res.data)))
@@ -39,8 +39,7 @@ function App() {
     if (token != null) {
       userGetUserInfo(token).then((res) => {
         setUserInfo(res.data)
-        // Favorites
-        sessionStorage.setItem("favorites", res.data.favorites)
+        sessionStorage.setItem("userInfo", JSON.stringify(res.data))
       })
     }
   }, [])

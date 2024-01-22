@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CruisCard from "../page_parts/CruiseCard";
 import { CruiseContext } from "../../App";
@@ -11,6 +11,11 @@ interface HomeProps {
 const Home: FunctionComponent<HomeProps> = () => {
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
     const navigate = useNavigate()
+
+    // scroll to top on load
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     return (
         <div style={{ marginTop: "90px" }}>

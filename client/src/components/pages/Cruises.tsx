@@ -1,4 +1,4 @@
-import { ChangeEvent, FunctionComponent, useContext, useState } from "react";
+import { ChangeEvent, FunctionComponent, useContext, useEffect, useState } from "react";
 import { CruiseContext } from "../../App";
 import PageTopImg from "../page_parts/PageTopImg";
 import Cruise from "../../interfaces/Cruise";
@@ -11,6 +11,11 @@ interface CruisesProps {
 const Cruises: FunctionComponent<CruisesProps> = () => {
     // Get Context
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
+
+    // scroll to top on load
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     // React Radio Handling Functions
     const [selectedFilter, setSelectedFilter] = useState("0")

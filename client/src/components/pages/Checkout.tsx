@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { FunctionComponent, useContext, useEffect } from "react";
 import { CruiseContext } from "../../App";
 import { useNavigate, useParams } from "react-router-dom";
 import { Field, FormikProvider, useFormik } from "formik";
@@ -7,12 +7,17 @@ import { alertSuccess } from "../../services/alertFunctions";
 
 interface CheckoutProps {
 
-
 }
 
 const Checkout: FunctionComponent<CheckoutProps> = () => {
     const navigate = useNavigate()
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
+    // scroll to top on load
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    // variable dataNum for manipulation of param
     let dataNum = 0
     const { cruiseNum } = useParams()
     dataNum = parseInt(cruiseNum as string) - 1

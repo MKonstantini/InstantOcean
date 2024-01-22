@@ -2,7 +2,6 @@ import { FunctionComponent, useContext } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { userGetUserInfo, userLogin } from "../../services/dbFunctions";
-import User from "../../interfaces/User";
 import { alertError, alertSuccess } from "../../services/alertFunctions";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
@@ -23,7 +22,7 @@ const FormLogin: FunctionComponent<FormLoginProps> = () => {
             )
             await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => {
                 setUserInfo(res.data)
-                sessionStorage.setItem("favorites", res.data.favorites as string)
+                sessionStorage.setItem("userInfo", JSON.stringify(res.data))
             })
 
             // client response

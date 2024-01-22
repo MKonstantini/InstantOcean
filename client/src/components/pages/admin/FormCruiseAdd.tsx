@@ -1,12 +1,11 @@
 import { FunctionComponent, useContext } from "react";
 import { FormikProvider, useFormik } from "formik";
 import * as yup from "yup"
-import { cruisePost } from "../../../services/dbFunctions";
+import { cruiseGetAll, cruisePost } from "../../../services/dbFunctions";
 import { useNavigate } from "react-router-dom";
 import { alertSuccess, alertError } from "../../../services/alertFunctions";
 import { CruiseContext } from "../../../App";
 import Cruise from "../../../interfaces/Cruise";
-
 
 interface FormCruiseAddProps {
 
@@ -21,9 +20,10 @@ const FormCruiseAdd: FunctionComponent<FormCruiseAddProps> = () => {
         try {
             // set token and userInfo
             await cruisePost(cruise)
+            await cruiseGetAll().then((res) => (setCruisesData(res.data)))
 
             // client response
-            alertSuccess(`Success! Cruise has been added. Data will be updated shortly`)
+            alertSuccess(`Success! Cruise has been added`)
             navigate("/admintools")
         }
         catch (error: any) {

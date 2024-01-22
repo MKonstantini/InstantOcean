@@ -1,4 +1,4 @@
-import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { FunctionComponent, useContext, useEffect } from "react";
 import { CruiseContext, UserContext } from "../../../App";
 import { useNavigate } from "react-router-dom";
 import PageTopImg from "../../page_parts/PageTopImg";
@@ -13,9 +13,6 @@ const AdminTools: FunctionComponent<AdminToolsProps> = () => {
     const [userInfo, setUserInfo] = useContext(UserContext)
     const navigate = useNavigate()
 
-    // state for editor FC
-    const [selectedCruise, setSelectedCruise] = useState<number>(0)
-
     // admin check
     useEffect(() => {
         if (!userInfo || userInfo.accountType !== "admin") navigate("/")
@@ -26,49 +23,6 @@ const AdminTools: FunctionComponent<AdminToolsProps> = () => {
         const date = new Date(dateStr)
         return (
             `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
-        )
-    }
-
-    // CRUD chart FC
-    const displayCRUDChart = () => {
-        return (
-            cruisesData &&
-            <div className="row mt-3 mb-4 m-5 text-center">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Depart From</th>
-                            <th>Ports</th>
-                            <th>Duration</th>
-                            <th>Nearest Date</th>
-                            <th>Start Price</th>
-                            <th>OPEN EDITOR</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            cruisesData.map((cruise: Cruise, i: number) =>
-                                <tr key={i}>
-                                    <td>{i + 1}</td>
-                                    <td>{cruise.name}</td>
-                                    <td>{cruise.departFrom}</td>
-                                    <td >{cruise.ports}</td>
-                                    <td>{cruise.duration} Days</td>
-                                    <td>{dateFormatter(cruise.startDate)}</td>
-                                    <td>$ {cruise.startPrice}</td>
-                                    <td>
-                                        <button className="btn" onClick={() => navigate(`/admintools/${i}`)} style={{ color: "grey" }}>
-                                            <i className="fa-solid fa-pen-to-square"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
         )
     }
 
@@ -84,7 +38,43 @@ const AdminTools: FunctionComponent<AdminToolsProps> = () => {
 
             {/* CRUD Interface Chart */}
             {
-                displayCRUDChart()
+                cruisesData &&
+                <div className="row mt-3 mb-4 m-5 text-center">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Depart From</th>
+                                <th>Ports</th>
+                                <th>Duration</th>
+                                <th>Nearest Date</th>
+                                <th>Start Price</th>
+                                <th>OPEN EDITOR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                cruisesData.map((cruise: Cruise, i: number) =>
+                                    <tr key={i}>
+                                        <td>{i + 1}</td>
+                                        <td>{cruise.name}</td>
+                                        <td>{cruise.departFrom}</td>
+                                        <td >{cruise.ports}</td>
+                                        <td>{cruise.duration} Days</td>
+                                        <td>{dateFormatter(cruise.startDate)}</td>
+                                        <td>$ {cruise.startPrice}</td>
+                                        <td>
+                                            <button className="btn" onClick={() => navigate(`/admintools/${i}`)} style={{ color: "grey" }}>
+                                                <i className="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
+                    </table>
+                </div>
             }
 
             {/* Add Cruise */}

@@ -24,7 +24,7 @@ const FormRegister: FunctionComponent<FormRegisterProps> = () => {
             )
             await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => {
                 setUserInfo(res.data)
-                sessionStorage.setItem("favorites", res.data.favorites as string)
+                sessionStorage.setItem("userInfo", JSON.stringify(res.data))
             })
 
             // client response

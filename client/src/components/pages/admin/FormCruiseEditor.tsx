@@ -1,7 +1,7 @@
 import { FunctionComponent, useContext } from "react";
 import { FormikProvider, useFormik } from "formik";
 import * as yup from "yup"
-import { cruiseDelete, cruisePatch } from "../../../services/dbFunctions";
+import { cruiseDelete, cruiseGetAll, cruisePatch } from "../../../services/dbFunctions";
 import { useNavigate } from "react-router-dom";
 import { alertSuccess, alertError } from "../../../services/alertFunctions";
 import { CruiseContext } from "../../../App";
@@ -21,10 +21,11 @@ const FormCruiseEditor: FunctionComponent<FormCruiseEditorProps> = ({ initialCru
         try {
             // db function
             await cruisePatch(cruise)
+            await cruiseGetAll().then((res) => (setCruisesData(res.data)))
 
             // client response
-            alertSuccess(`Success! Cruise has been edited. Data will be updated shortly`)
-            navigate("/")
+            alertSuccess(`Success! Cruise has been edited`)
+            navigate("/admintools")
         }
         catch (error: any) {
             alertError(error.response.data)
@@ -44,10 +45,11 @@ const FormCruiseEditor: FunctionComponent<FormCruiseEditorProps> = ({ initialCru
         try {
             // db function
             await cruiseDelete(initialCruise.cruiseNum)
+            await cruiseGetAll().then((res) => (setCruisesData(res.data)))
 
             // client response
-            alertSuccess(`Success! Cruise has been deleted. Data will be updated shortly`)
-            navigate("/")
+            alertSuccess(`Success! Cruise has been deleted`)
+            navigate("/admintools")
         }
         catch (error: any) {
             alertError(error.response.data)
