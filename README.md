@@ -1,5 +1,6 @@
 # InstantOcean
 A cruise line company web project.  
+
 Browse and search cruise lines and pricings.  
 Register or use demo users for favorites and admin tool features.  
 Includes checkout page for reviewing and finalizing payment options.  
