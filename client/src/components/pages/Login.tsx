@@ -22,7 +22,10 @@ const Login: FunctionComponent<LoginProps> = () => {
             await userLogin("dRegular@instantocean.com", "demoRegular").then((res) => sessionStorage.setItem("token", res.data))
             // cleant response
             alertSuccess("Welcome to the demo! Authorization: Regular Account")
-            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
+            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => {
+                setUserInfo(res.data)
+                sessionStorage.setItem("favorites", res.data.favorites as string)
+            })
             navigate("/")
         } catch (error: any) {
             alertError(error.response.data)
@@ -36,7 +39,10 @@ const Login: FunctionComponent<LoginProps> = () => {
             await userLogin("dAdmin@instantocean.com", "demoAdmin").then((res) => sessionStorage.setItem("token", res.data))
             // cleant response
             alertSuccess("Welcome to the demo! Authorization: Admin Account")
-            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
+            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => {
+                setUserInfo(res.data)
+                sessionStorage.setItem("favorites", res.data.favorites as string)
+            })
             navigate("/")
         } catch (error: any) {
             alertError(error.response.data)

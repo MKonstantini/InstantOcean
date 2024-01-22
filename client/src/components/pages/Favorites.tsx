@@ -13,16 +13,15 @@ const Favorites: FunctionComponent<FavoritesProps> = () => {
     const [cruisesData, setCruisesData] = useContext(CruiseContext)
     const [userInfo, setUserInfo] = useContext(UserContext)
 
-    // get favorites as array
-    let favorites: any = sessionStorage.getItem("favorites")
-    favorites = favorites?.split(',').map((i: string) => parseInt(i))
-    console.log(favorites)
-
     // evict user from page if not logged in
     const navigate = useNavigate()
     useEffect(() => {
         if (!userInfo) navigate(-1)
     }, [])
+
+    // get favorites as array
+    let favorites: any = sessionStorage.getItem("favorites")
+    favorites = favorites?.split(',').map((i: string) => parseInt(i))
 
     const displayFavorites = () => {
         if (cruisesData) {

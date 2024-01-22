@@ -21,7 +21,10 @@ const FormLogin: FunctionComponent<FormLoginProps> = () => {
             await userLogin(values.email, values.password).then((res) =>
                 sessionStorage.setItem("token", res.data)
             )
-            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
+            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => {
+                setUserInfo(res.data)
+                sessionStorage.setItem("favorites", res.data.favorites as string)
+            })
 
             // client response
             alertSuccess(`Welcome back ${values.email}!`)

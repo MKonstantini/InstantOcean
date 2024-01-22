@@ -22,7 +22,10 @@ const FormRegister: FunctionComponent<FormRegisterProps> = () => {
             await userRegister(user).then((res) =>
                 sessionStorage.setItem("token", res.data)
             )
-            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => setUserInfo(res.data))
+            await userGetUserInfo(sessionStorage.getItem("token") as string).then((res) => {
+                setUserInfo(res.data)
+                sessionStorage.setItem("favorites", res.data.favorites as string)
+            })
 
             // client response
             alertSuccess(`New Account Created! Welcome ${user.email}`)
